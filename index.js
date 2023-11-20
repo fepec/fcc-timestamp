@@ -66,5 +66,4 @@ app.get('/api/:date', (req, res) => {
       "utc": dateObject.toUTCString()
     })
   }
-
 }) 
