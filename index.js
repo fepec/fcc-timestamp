@@ -37,17 +37,27 @@ var listener = app.listen(process.env.PORT || 3000, function () {
 // Format requested is in UTC string, so use Date.toUTCString()
 // Unix: Date.valueOf().
 
+app.get('/api', (req, res) => {
+
+  dateObject = new Date()
+
+  res.json({
+    "unix": dateObject.valueOf(),
+    "utc": dateObject.toUTCString()
+  })
+
+})
+
 app.get('/api/:date', (req, res) => {
   let dateIn = req.params.date
   
   if(!isNaN(Number(dateIn))) { // Confusing double negative. Checks if dateIn is a Number.
     dateIn = Number(dateIn)
   }
-  console.log("dateIn:", dateIn)
   dateObject = new Date(dateIn)
 
   res.json({
     "unix": dateObject.valueOf(),
-    "utx": dateObject.toUTCString()
+    "utc": dateObject.toUTCString()
   })
 }) 
