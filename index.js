@@ -35,13 +35,19 @@ var listener = app.listen(process.env.PORT || 3000, function () {
 // First, I have to get the endpoint.
 // If string, I have to parse. If unix, use number provided.
 // Format requested is in UTC string, so use Date.toUTCString()
-// Unix: Date.valueOf()
+// Unix: Date.valueOf().
 
 app.get('/api/:date', (req, res) => {
-  myDate = new Date(req.params.date)
+  let dateIn = req.params.date
+  
+  if(!isNaN(Number(dateIn))) { // Confusing double negative. Checks if dateIn is a Number.
+    dateIn = Number(dateIn)
+  }
+  console.log("dateIn:", dateIn)
+  dateObject = new Date(dateIn)
 
   res.json({
-    "unix": myDate.valueOf(),
-    "utx": myDate.toUTCString()
+    "unix": dateObject.valueOf(),
+    "utx": dateObject.toUTCString()
   })
 }) 
