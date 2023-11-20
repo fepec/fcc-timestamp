@@ -30,3 +30,18 @@ app.get("/api/hello", function (req, res) {
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+// Plan
+// First, I have to get the endpoint.
+// If string, I have to parse. If unix, use number provided.
+// Format requested is in UTC string, so use Date.toUTCString()
+// Unix: Date.valueOf()
+
+app.get('/api/:date', (req, res) => {
+  myDate = new Date(req.params.date)
+
+  res.json({
+    "unix": myDate.valueOf(),
+    "utx": myDate.toUTCString()
+  })
+}) 
